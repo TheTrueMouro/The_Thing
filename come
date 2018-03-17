@@ -1,0 +1,14 @@
+from numpy import exp, array, random, dot
+
+train_in = array([[0,0,1], [1,1,1], [1,0,1], [0,1,1]])
+train_out = array([[0,1,1,0]]).T
+
+random.seed(1)
+
+synaptic_weights = 2 * random.random((3,1)) - 1
+
+for repetition in range(10000):
+    out = 1 / (1 + exp(-(dot(train_in, synaptic_weights))))
+    synaptic_weights += dot(train_in.T, (train_out - out) * out * (1 - out))
+
+print (1 / (1 + exp(-(dot(array([1,0,0]), synaptic_weights)))))
